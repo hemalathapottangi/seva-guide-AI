@@ -1,0 +1,6 @@
+{
+  "name": "SEVAGUIDE AI",
+  "description": "SEVAGUIDE AI - Intelligent Citizen Service Access, Eligibility Verification, Document Checklists & Government Scheme Guidance Portal",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
