@@ -3,12 +3,22 @@ export type Language = 'en' | 'te' | 'hi';
 export type Category = 
   | 'all'
   | 'education' 
-  | 'agriculture' 
-  | 'healthcare' 
-  | 'social_welfare' 
-  | 'housing' 
   | 'employment' 
-  | 'business';
+  | 'healthcare' 
+  | 'agriculture' 
+  | 'housing' 
+  | 'women_child' 
+  | 'senior_citizens' 
+  | 'social_welfare' 
+  | 'disability' 
+  | 'certificates' 
+  | 'identity' 
+  | 'financial_assistance' 
+  | 'utilities' 
+  | 'transport' 
+  | 'rural_development' 
+  | 'business' 
+  | 'other';
 
 export type TargetGroup = 
   | 'all'
@@ -18,6 +28,9 @@ export type TargetGroup =
   | 'women' 
   | 'youth' 
   | 'low_income' 
+  | 'workers' 
+  | 'disabled' 
+  | 'entrepreneurs' 
   | 'general';
 
 export interface DocumentItem {
@@ -78,7 +91,15 @@ export interface GovernmentService {
   status: 'active' | 'upcoming' | 'open_yearly';
   popular?: boolean;
   tags: string[];
+  keywords?: string[];
+  synonyms?: string[];
+  location?: string;
+  lastUpdated?: string;
+  isDemo?: boolean;
 }
+
+export type SpeechStatus = 'idle' | 'listening' | 'processing' | 'error' | 'unsupported';
+export type TtsStatus = 'idle' | 'speaking' | 'paused';
 
 export interface AwarenessNotification {
   id: string;

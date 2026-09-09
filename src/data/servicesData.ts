@@ -1,6 +1,7 @@
 import { GovernmentService } from '../types';
+import { additionalServices } from './additionalServices';
 
-export const servicesData: GovernmentService[] = [
+const baseServicesData: GovernmentService[] = [
   {
     id: 'nsp-scholarship',
     code: 'EDU-NSP-01',
@@ -1633,3 +1634,114 @@ export const servicesData: GovernmentService[] = [
     tags: ['Pension', 'Senior Citizens', 'Old Age', 'Social Security', 'NSAP', 'BPL']
   }
 ];
+
+export const servicesData: GovernmentService[] = [...baseServicesData, ...additionalServices];
+
+// 4. SERVICE CATALOGUE HELPER FUNCTIONS
+export function getServiceById(id: string): GovernmentService | undefined {
+  return servicesData.find(s => s.id === id);
+}
+
+export function getServicesByCategory(category: string): GovernmentService[] {
+  if (!category || category === 'all') return servicesData;
+  return servicesData.filter(s => s.category === category);
+}
+
+export function getServicesByTargetGroup(group: string): GovernmentService[] {
+  if (!group || group === 'all') return servicesData;
+  return servicesData.filter(s => s.targetGroups.includes(group as any));
+}
+
+export function searchServices(
+  query: string,
+  category: string = 'all',
+  audience: string = 'all',
+  lang: 'en' | 'te' | 'hi' = 'en'
+): GovernmentService[] {
+  const cleanQ = (query || '').trim().toLowerCase();
+  
+  return servicesData.filter(service => {
+    // Category filter
+    if (category !== 'all' && service.category !== category) {
+      return false;
+    }
+    // Audience filter
+    if (audience !== 'all' && !service.targetGroups.includes(audience as any)) {
+      return false;
+    }
+    // Query filter
+    if (!cleanQ) return true;
+
+    const nameMatches =
+      service.name.en.toLowerCase().includes(cleanQ) ||
+      service.name.te.toLowerCase().includes(cleanQ) ||
+      service.name.hi.toLowerCase().includes(cleanQ);
+
+    const descMatches =
+      service.shortDescription[lang]?.toLowerCase().includes(cleanQ) ||
+      service.fullDescription[lang]?.toLowerCase().includes(cleanQ);
+
+    const tagsMatch = service.tags.some(t => t.toLowerCase().includes(cleanQ));
+    const keywordsMatch = service.keywords?.some(k => k.toLowerCase().includes(cleanQ));
+    const synonymsMatch = service.synonyms?.some(s => s.toLowerCase().includes(cleanQ));
+    const deptMatch = service.department[lang]?.toLowerCase().includes(cleanQ);
+
+    return nameMatches || descMatches || tagsMatch || keywordsMatch || synonymsMatch || deptMatch;
+  });
+}
+
+export function getEligibleServices(profile: {
+  age?: number;
+  annualIncome?: number;
+  category?: string;
+  targetGroup?: string;
+  isStudent?: boolean;
+  isFarmer?: boolean;
+  isWoman?: boolean;
+  isSeniorCitizen?: boolean;
+  isDisabled?: boolean;
+}): GovernmentService[] {
+  return servicesData.filter(service => {
+    const { eligibility } = service;
+    if (profile.age !== undefined && eligibility.ageRange) {
+      if (profile.age < eligibility.ageRange.min || profile.age > eligibility.ageRange.max) {
+        return false;
+      }
+    }
+    if (profile.annualIncome !== undefined && eligibility.maxAnnualIncome !== undefined) {
+      if (profile.annualIncome > eligibility.maxAnnualIncome) {
+        return false;
+      }
+    }
+    return true;
+  });
+}
+
+export function getRelatedServices(serviceId: string, limit: number = 3): GovernmentService[] {
+  const current = getServiceById(serviceId);
+  if (!current) return servicesData.slice(0, limit);
+  return servicesData
+    .filter(s => s.id !== serviceId && (s.category === current.category || s.targetGroups.some(g => current.targetGroups.includes(g))))
+    .slice(0, limit);
+}
+
+export function getAllCategories(): string[] {
+  const cats = new Set<string>();
+  servicesData.forEach(s => cats.add(s.category));
+  return Array.from(cats);
+}
+
+export function getDashboardMetrics() {
+  const totalServices = servicesData.length;
+  const categories = new Set(servicesData.map(s => s.category)).size;
+  const verifiedLinks = servicesData.filter(s => !!s.links.applyUrl).length;
+  const popularCount = servicesData.filter(s => s.popular).length;
+
+  return {
+    totalServices,
+    categories,
+    verifiedLinks,
+    popularCount
+  };
+}
+

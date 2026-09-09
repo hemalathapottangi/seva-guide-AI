@@ -12,7 +12,18 @@ import {
   Users, 
   Coins, 
   ShieldAlert,
-  ChevronRight
+  ChevronRight,
+  Sun,
+  FileCheck2,
+  Accessibility,
+  Baby,
+  Car,
+  Landmark,
+  BadgeDollarSign,
+  Fingerprint,
+  HeartHandshake,
+  Layers,
+  ArrowRight
 } from 'lucide-react';
 import { Language, Category, TargetGroup, AwarenessNotification } from '../types';
 import { translations } from '../data/translations';
@@ -49,19 +60,30 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
     { id: 'education', label: t.catEducation, icon: <GraduationCap className="w-4 h-4" /> },
     { id: 'agriculture', label: t.catAgriculture, icon: <Tractor className="w-4 h-4" /> },
     { id: 'healthcare', label: t.catHealthcare, icon: <HeartPulse className="w-4 h-4" /> },
-    { id: 'housing', label: t.catHousing, icon: <Home className="w-4 h-4" /> },
+    { id: 'women_child', label: t.catWomenChild, icon: <Baby className="w-4 h-4" /> },
     { id: 'employment', label: t.catEmployment, icon: <Briefcase className="w-4 h-4" /> },
+    { id: 'social_welfare', label: t.catSocialWelfare, icon: <HeartHandshake className="w-4 h-4" /> },
+    { id: 'financial_assistance', label: t.catFinancialAssistance, icon: <BadgeDollarSign className="w-4 h-4" /> },
+    { id: 'disability', label: t.catDisability, icon: <Accessibility className="w-4 h-4" /> },
+    { id: 'certificates', label: t.catCertificates, icon: <FileCheck2 className="w-4 h-4" /> },
+    { id: 'utilities', label: t.catUtilities, icon: <Sun className="w-4 h-4" /> },
+    { id: 'transport', label: t.catTransport, icon: <Car className="w-4 h-4" /> },
+    { id: 'identity', label: t.catIdentity, icon: <Fingerprint className="w-4 h-4" /> },
+    { id: 'housing', label: t.catHousing, icon: <Home className="w-4 h-4" /> },
     { id: 'business', label: t.catBusiness, icon: <Coins className="w-4 h-4" /> },
-    { id: 'social_welfare', label: t.catSocialWelfare, icon: <CheckCircle2 className="w-4 h-4" /> },
+    { id: 'rural_development', label: t.catRuralDevelopment, icon: <Landmark className="w-4 h-4" /> },
   ];
 
   const audiences: { id: TargetGroup | 'all'; label: string }[] = [
     { id: 'all', label: t.allAudiences },
     { id: 'students', label: t.audStudents },
     { id: 'farmers', label: t.audFarmers },
-    { id: 'senior_citizens', label: t.audSeniorCitizens },
     { id: 'women', label: t.audWomen },
     { id: 'youth', label: t.audYouth },
+    { id: 'disabled', label: t.audDisabled },
+    { id: 'workers', label: t.audWorkers },
+    { id: 'entrepreneurs', label: t.audEntrepreneurs },
+    { id: 'senior_citizens', label: t.audSeniorCitizens },
     { id: 'low_income', label: t.audLowIncome },
   ];
 
@@ -173,55 +195,85 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           </div>
         </div>
 
-        {/* Categories Bar */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none sm:justify-center">
-            {categories.map((cat) => {
-              const isSelected = selectedCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  id={`filter-cat-${cat.id}`}
-                  type="button"
-                  onClick={() => onSelectCategory(cat.id)}
-                  className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-2 shrink-0 ${
-                    isSelected
-                      ? 'bg-blue-700 text-white shadow-sm shadow-blue-500/20 ring-2 ring-blue-600/30'
-                      : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 hover:border-slate-300'
-                  }`}
-                >
-                  <span className={isSelected ? 'text-white' : 'text-blue-600'}>
-                    {cat.icon}
-                  </span>
-                  <span>{cat.label}</span>
-                </button>
-              );
-            })}
+        {/* Categories & Audience Horizontal Scroll Bars */}
+        <div className="space-y-4 pt-2">
+          {/* 1. Dedicated Government Service Categories Horizontal Scroll */}
+          <div className="w-full">
+            <div className="flex items-center justify-between mb-2 px-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-blue-700" />
+                <span>Government Service Categories</span>
+              </span>
+              <span className="text-[11px] font-medium text-slate-400 flex items-center gap-1">
+                <span>Swipe horizontally</span>
+                <ArrowRight className="w-3 h-3 text-slate-400" />
+              </span>
+            </div>
+
+            <div 
+              id="categories-horizontal-container"
+              className="w-full overflow-x-auto overflow-y-hidden pb-2.5 pt-1 scroll-smooth overscroll-x-contain flex items-center gap-2.5 [scrollbar-width:thin]"
+            >
+              {categories.map((cat) => {
+                const isSelected = selectedCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    id={`filter-cat-${cat.id}`}
+                    type="button"
+                    onClick={() => onSelectCategory(cat.id)}
+                    className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-2 shrink-0 ${
+                      isSelected
+                        ? 'bg-blue-700 text-white shadow-sm shadow-blue-500/20 ring-2 ring-blue-600/30'
+                        : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 hover:border-slate-300'
+                    }`}
+                  >
+                    <span className={isSelected ? 'text-white' : 'text-blue-600'}>
+                      {cat.icon}
+                    </span>
+                    <span>{cat.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Citizen Target Group Quick Pills */}
-          <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-1 text-xs">
-            <span className="font-semibold text-slate-500 uppercase tracking-wider text-[11px] shrink-0 mr-1">
-              {t.quickFiltersLabel}
-            </span>
-            {audiences.map((aud) => {
-              const isAudSelected = selectedAudience === aud.id;
-              return (
-                <button
-                  key={aud.id}
-                  id={`filter-aud-${aud.id}`}
-                  type="button"
-                  onClick={() => onSelectAudience(aud.id)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors shrink-0 whitespace-nowrap ${
-                    isAudSelected
-                      ? 'bg-indigo-900 text-white font-semibold shadow-xs'
-                      : 'bg-slate-200/70 text-slate-700 hover:bg-slate-300/70'
-                  }`}
-                >
-                  {aud.label}
-                </button>
-              );
-            })}
+          {/* 2. Dedicated Target Audience Horizontal Scroll */}
+          <div className="w-full pt-2 border-t border-slate-200/80">
+            <div className="flex items-center justify-between mb-2 px-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5 text-indigo-700" />
+                <span>Target Audience</span>
+              </span>
+              <span className="text-[11px] font-medium text-slate-400 flex items-center gap-1">
+                <span>Filter by beneficiary</span>
+                <ArrowRight className="w-3 h-3 text-slate-400" />
+              </span>
+            </div>
+
+            <div 
+              id="audiences-horizontal-container"
+              className="w-full overflow-x-auto overflow-y-hidden pb-2 pt-1 scroll-smooth overscroll-x-contain flex items-center gap-2 [scrollbar-width:thin]"
+            >
+              {audiences.map((aud) => {
+                const isAudSelected = selectedAudience === aud.id;
+                return (
+                  <button
+                    key={aud.id}
+                    id={`filter-aud-${aud.id}`}
+                    type="button"
+                    onClick={() => onSelectAudience(aud.id)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors shrink-0 whitespace-nowrap ${
+                      isAudSelected
+                        ? 'bg-indigo-900 text-white font-bold shadow-xs ring-2 ring-indigo-700/30'
+                        : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'
+                    }`}
+                  >
+                    {aud.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

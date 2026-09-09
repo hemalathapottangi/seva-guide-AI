@@ -16,11 +16,20 @@ import {
   Info, 
   Layers,
   BookOpen,
-  CornerDownLeft
+  CornerDownLeft,
+  Mic,
+  MicOff,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import { Language, GovernmentService, ChatMessage } from '../types';
 import { translations } from '../data/translations';
 import { evaluateCitizenQuery } from '../utils/sevaguideAiEngine';
+import { 
+  voiceAssistant, 
+  isSpeechRecognitionSupported, 
+  isSpeechSynthesisSupported 
+} from '../utils/speechVoice';
 
 interface AiServiceAdvisorProps {
   currentLang: Language;
@@ -40,6 +49,20 @@ export const AiServiceAdvisor: React.FC<AiServiceAdvisorProps> = ({
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [activeServiceId, setActiveServiceId] = useState<string | undefined>(undefined);
+  const [isListening, setIsListening] = useState(false);
+  const [listeningError, setListeningError] = useState<string | null>(null);
+  const [speakingMessageId, setSpeakingMessageId] = useState<string | null>(null);
+
+  const speechRecSupported = isSpeechRecognitionSupported();
+  const speechSynthesisSupported = isSpeechSynthesisSupported();
+
+  // Stop voice activities on unmount
+  useEffect(() => {
+    return () => {
+      voiceAssistant.stopListening();
+      voiceAssistant.stopSpeaking();
+    };
+  }, []);
 
   // Initial welcome message from SEVAGUIDE AI Assistant
   const [messages, setMessages] = useState<ChatMessage[]>(() => [
@@ -48,15 +71,15 @@ export const AiServiceAdvisor: React.FC<AiServiceAdvisorProps> = ({
       sender: 'assistant',
       timestamp: Date.now(),
       text: currentLang === 'en'
-        ? `Hello! I am **SEVAGUIDE AI Assistant**, your conversational government service advisor.\n\nAsk me about any welfare scheme, educational financial aid, farmer assistance, health cover, required documents, or application procedures in simple words. I will identify the exact service and outline your verified next steps.`
+        ? `Hello! I am **SEVAGUIDE AI Assistant**, your conversational government service advisor.\n\nAsk me about any welfare scheme, educational financial aid, farmer assistance, health cover, required documents, or application procedures in simple words. You can also tap the 🎙️ **Microphone** button to speak your question directly!`
         : currentLang === 'te'
-        ? `నమస్కారం! నేను **SEVAGUIDE AI అసిస్టెంట్**, మీ పౌర సంక్షేమ పథకాల మార్గదర్శిని.\n\nవిద్యార్థి స్కాలర్‌షిప్‌లు, రైతు పథకాలు, ఉచిత ఆరోగ్య బీమా లేదా దరఖాస్తు విధానం గురించి నాతో మాట్లాడండి. మీకు సరిపోయే ఖచ్చితమైన పథకాన్ని నేను గుర్తిస్తాను.`
-        : `नमस्ते! मैं **SEVAGUIDE AI सहायक** हूं, आपका नागरिक सेवा सलाहकार।\n\nमुझसे किसी भी सरकारी योजना, छात्रवृत्ति, किसान सहायता, स्वास्थ्य बीमा, आवश्यक दस्तावेज या आवेदन प्रक्रिया के बारे में सरल शब्दों में पूछें।`,
+        ? `నమస్కారం! నేను **SEVAGUIDE AI అసిస్టెంట్**, మీ పౌర సంక్షేమ పథకాల మార్గదర్శిని.\n\nవిద్యార్థి స్కాలర్‌షిప్‌లు, రైతు పథకాలు, ఉచిత ఆరోగ్య బీమా లేదా దరఖాస్తు విధానం గురించి నాతో మాట్లాడండి. మీరు 🎙️ **మైక్రోఫోన్** బటన్‌ను నొక్కి మీ ప్రశ్నను నేరుగా మాట్లాడవచ్చు!`
+        : `नमस्ते! मैं **SEVAGUIDE AI सहायक** हूं, आपका नागरिक सेवा सलाहकार।\n\nमुझसे किसी भी सरकारी योजना, छात्रवृत्ति, किसान सहायता, स्वास्थ्य बीमा, आवश्यक दस्तावेज या आवेदन प्रक्रिया के बारे में सरल शब्दों में पूछें। आप 🎙️ **माइक** बटन दबाकर सीधे बोलकर भी पूछ सकते हैं!`,
       quickFollowUps: [
         'I am a student from Andhra Pradesh and I need financial assistance for my education. Which government service should I apply for?',
         'I am a farmer and need government assistance.',
         'I need help with a health-related government scheme.',
-        'I want to apply for a government service related to employment.',
+        'I want to apply for a rooftop solar panel subsidy.',
         'I want to know which documents are required.'
       ]
     }
@@ -77,12 +100,16 @@ export const AiServiceAdvisor: React.FC<AiServiceAdvisorProps> = ({
       prompt: 'I need help with a health-related government scheme.'
     },
     {
-      label: currentLang === 'en' ? 'Unorganized Labor (e-Shram)' : currentLang === 'te' ? 'కార్మిక సంక్షేమం (ఈ-శ్రమ్)' : 'श्रमिक कल्याण (ई-श्रम)',
-      prompt: 'I want to apply for a government service related to employment.'
+      label: currentLang === 'en' ? 'Rooftop Solar Subsidy' : currentLang === 'te' ? 'రూఫ్‌టాప్ సోలార్ సబ్సిడీ' : 'रूफटॉप सोलर सब्सिडी',
+      prompt: 'I want to apply for a rooftop solar panel subsidy to reduce my electricity bill.'
     },
     {
-      label: currentLang === 'en' ? 'Small Business Loan (MUDRA)' : currentLang === 'te' ? 'చిన్న వ్యాపార రుణం (ముద్ర)' : 'व्यापार ऋण (मुद्रा)',
-      prompt: 'I want a collateral free government loan to start a small retail shop.'
+      label: currentLang === 'en' ? 'Disability Smart Card (UDID)' : currentLang === 'te' ? 'దివ్యాంగుల కార్డ్ (UDID)' : 'दिव्यांग कार्ड (UDID)',
+      prompt: 'How to apply for a Unique Disability ID (UDID) Swavlamban card?'
+    },
+    {
+      label: currentLang === 'en' ? 'Street Vendor Micro-Loan' : currentLang === 'te' ? 'వీధి వ్యాపారి రుణం' : 'स्ट्रीट वेंडर लोन (स्वनिधि)',
+      prompt: 'I am a street vendor and need a working capital loan without collateral.'
     }
   ];
 
@@ -90,6 +117,54 @@ export const AiServiceAdvisor: React.FC<AiServiceAdvisorProps> = ({
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
+
+  const handleToggleVoiceInput = () => {
+    if (isListening) {
+      voiceAssistant.stopListening();
+      setIsListening(false);
+      return;
+    }
+
+    setListeningError(null);
+    const success = voiceAssistant.startListening(
+      currentLang,
+      (transcript) => {
+        setInputMessage(transcript);
+        setIsListening(false);
+        inputRef.current?.focus();
+      },
+      (err) => {
+        setIsListening(false);
+        setListeningError(
+          currentLang === 'en' 
+            ? `Voice input: ${err}. Please check your microphone permissions.`
+            : currentLang === 'te'
+            ? `వాయిస్ ఇన్‌పుట్ లోపం: దయచేసి మైక్రోఫోన్ అనుమతులను తనిఖీ చేయండి.`
+            : `वॉइस इनपुट त्रुटि: कृपया माइक्रोफ़ोन अनुमति जांचें।`
+        );
+        setTimeout(() => setListeningError(null), 5000);
+      },
+      () => {
+        setIsListening(false);
+      }
+    );
+
+    if (success) {
+      setIsListening(true);
+    }
+  };
+
+  const handleToggleSpeech = (msgId: string, text: string) => {
+    if (speakingMessageId === msgId) {
+      voiceAssistant.stopSpeaking();
+      setSpeakingMessageId(null);
+    } else {
+      setSpeakingMessageId(msgId);
+      voiceAssistant.speak(text, currentLang, () => {
+        setSpeakingMessageId(null);
+      });
+    }
+  };
 
   const handleSendMessage = (textToSend?: string) => {
     const text = (textToSend !== undefined ? textToSend : inputMessage).trim();
@@ -234,13 +309,43 @@ export const AiServiceAdvisor: React.FC<AiServiceAdvisorProps> = ({
               <div className={`max-w-2xl sm:max-w-3xl space-y-3 ${isUser ? 'items-end' : 'items-start'}`}>
                 {/* Message Bubble */}
                 <div 
-                  className={`p-4 sm:p-5 rounded-2xl text-sm leading-relaxed ${
+                  className={`p-4 sm:p-5 rounded-2xl text-sm leading-relaxed relative ${
                     isUser
                       ? 'bg-blue-700 text-white rounded-br-xs shadow-sm font-medium'
                       : 'bg-white text-slate-800 border border-slate-200 rounded-bl-xs shadow-xs'
                   }`}
                 >
                   <p className="whitespace-pre-line">{msg.text}</p>
+                  
+                  {!isUser && (
+                    <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+                      <span className="text-[11px] text-slate-400">
+                        {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleSpeech(msg.id, msg.text)}
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
+                          speakingMessageId === msg.id 
+                            ? 'bg-indigo-600 text-white shadow-xs' 
+                            : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+                        }`}
+                        title={speakingMessageId === msg.id ? 'Stop audio' : 'Read aloud'}
+                      >
+                        {speakingMessageId === msg.id ? (
+                          <>
+                            <VolumeX className="w-3.5 h-3.5" />
+                            <span>Speaking...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Volume2 className="w-3.5 h-3.5 text-indigo-600" />
+                            <span>Read Aloud</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Structured Recommendation Card (When AI identified an Exact Service) */}
@@ -501,6 +606,41 @@ export const AiServiceAdvisor: React.FC<AiServiceAdvisorProps> = ({
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Voice Assistant Listening Feedback Strip */}
+      {isListening && (
+        <div id="voice-listening-active-indicator" className="bg-rose-50 border border-rose-200 text-rose-800 p-3 rounded-2xl flex items-center justify-between animate-pulse text-xs font-semibold shadow-xs">
+          <div className="flex items-center gap-2.5">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
+            </span>
+            <span>
+              {currentLang === 'en' 
+                ? 'Listening to your voice... Speak your problem in English, Telugu, or Hindi.' 
+                : currentLang === 'te' 
+                ? 'మీ వాయిస్ వినబడుతోంది... మీ సమస్యను తెలుగు, ఇంగ్లీష్ లేదా హిందీలో మాట్లాడండి.' 
+                : 'आपकी आवाज़ सुन रहा हूँ... अपना प्रश्न हिंदी, अंग्रेजी या तेलुगु में बोलें।'}
+            </span>
+          </div>
+          <button
+            id="voice-stop-btn"
+            type="button"
+            onClick={handleToggleVoiceInput}
+            className="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition-colors shadow-2xs"
+          >
+            Stop
+          </button>
+        </div>
+      )}
+
+      {/* Listening Error Banner */}
+      {listeningError && (
+        <div className="bg-amber-50 border border-amber-200 text-amber-900 p-3 rounded-xl text-xs flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+          <span>{listeningError}</span>
+        </div>
+      )}
+
       {/* Chat Input Bar */}
       <form 
         onSubmit={(e) => {
@@ -519,10 +659,35 @@ export const AiServiceAdvisor: React.FC<AiServiceAdvisorProps> = ({
           type="text"
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
-          placeholder={t.chatInputPlaceholder}
+          placeholder={isListening ? 'Listening to your voice...' : t.chatInputPlaceholder}
           disabled={isTyping}
           className="flex-1 bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden px-2 py-1.5"
         />
+
+        {/* Voice Input Microphone Button */}
+        <button
+          id="chat-voice-input-btn"
+          type="button"
+          onClick={handleToggleVoiceInput}
+          title={isListening ? 'Stop Listening' : 'Speak with Voice Assistant'}
+          className={`p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 ${
+            isListening
+              ? 'bg-rose-600 text-white ring-4 ring-rose-200 animate-pulse'
+              : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200'
+          }`}
+        >
+          {isListening ? (
+            <>
+              <MicOff className="w-4 h-4" />
+              <span className="hidden sm:inline">Listening</span>
+            </>
+          ) : (
+            <>
+              <Mic className="w-4 h-4 text-indigo-600" />
+              <span className="hidden sm:inline">Voice</span>
+            </>
+          )}
+        </button>
 
         <button
           id="chat-send-btn"

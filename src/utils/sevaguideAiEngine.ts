@@ -251,6 +251,358 @@ const SERVICE_INTENT_RULES: IntentRule[] = [
       te: 'ఆడపిల్ల పుట్టినప్పటి నుండి 10 సంవత్సరాల వయస్సు వరకు ఏదైనా పోస్టాఫీస్ లేదా బ్యాంకులో కేవలం ₹250 తో ఖాతా తెరవవచ్చు.',
       hi: 'बालिका के जन्म से लेकर 10 वर्ष की आयु तक किसी भी डाकघर या बैंक में मात्र ₹250 की न्यूनतम राशि से खाता खोला जा सकता है।'
     }
+  },
+  {
+    serviceId: 'aicte-pragati',
+    category: 'education',
+    targetGroups: ['students', 'women', 'youth'],
+    intents: [
+      'girl scholarship for engineering',
+      'pragati scholarship',
+      'aicte scholarship for girls',
+      'polytechnic scholarship for girl student',
+      'technical education aid for daughters'
+    ],
+    keywords: [
+      'pragati', 'aicte', 'engineering girl', 'girl scholarship', 'btech', 'diploma girl', '50000',
+      'ఇంజనీరింగ్ స్కాలర్‌షిప్', 'ప్రగతి పథకం', 'బాలికల స్కాలర్‌షిప్',
+      'प्रगति छात्रवृत्ति', 'बालिका बीटेक', 'इंजीनियरिंग डिप्लोमा'
+    ],
+    whyExplanation: {
+      en: 'You requested technical educational assistance for a girl student. AICTE Pragati Scholarship provides ₹50,000 per year directly to female students pursuing technical Degree or Diploma courses.',
+      te: 'మీరు బాలికల సాంకేతిక విద్య కోసం స్కాలర్‌షిప్ గురించి అడిగారు. ఏఐసీటీఈ ప్రగతి పథకం ఇంజనీరింగ్ లేదా డిప్లొమా చదువుతున్న బాలికలకు ఏటా ₹50,000 సహాయాన్ని అందిస్తుంది.',
+      hi: 'आपने बालिका हेतु तकनीकी शिक्षा सहायता का अनुरोध किया है। एआईसीटीई प्रगति योजना इंजीनियरिंग व डिप्लोमा छात्राओं को प्रति वर्ष ₹50,000 की वित्तीय सहायता देती है।'
+    },
+    importantNote: {
+      en: 'Admission must be through central/state counseling process and family annual income must not exceed ₹8,00,000.',
+      te: 'కౌన్సెలింగ్ ద్వారా అడ్మిషన్ పొంది ఉండాలి మరియు కుటుంబ వార్షిక ఆదాయం ₹8 లక్షల లోపు ఉండాలి.',
+      hi: 'काउंसलिंग के माध्यम से प्रवेश होना चाहिए तथा पारिवारिक आय ₹8 लाख से अधिक नहीं होनी चाहिए।'
+    }
+  },
+  {
+    serviceId: 'pm-fby',
+    category: 'agriculture',
+    targetGroups: ['farmers', 'low_income'],
+    intents: [
+      'crop insurance',
+      'fasal bima yojana',
+      'crop damage compensation',
+      'drought loss relief',
+      'flood crop loss claim',
+      'kisan bima'
+    ],
+    keywords: [
+      'fasal bima', 'crop insurance', 'pmfby', 'crop loss', 'drought', 'flood damage', 'paddy insurance',
+      'పంట బీమా', 'ఫసల్ బీమా', 'పంట నష్టం', 'కరువు సహాయం',
+      'फसल बीमा', 'फसल नुकसान', 'सूखा मुआवजा', 'ओलावृष्टि बीमा'
+    ],
+    whyExplanation: {
+      en: 'You inquired about crop loss or agricultural protection. Pradhan Mantri Fasal Bima Yojana (PMFBY) protects farmers against non-preventable natural calamities with nominal 1.5% to 2% premium.',
+      te: 'మీరు పంట నష్టం లేదా పంట బీమా గురించి అడిగారు. పీఎం ఫసల్ బీమా యోజన కరువు, వరదలు మరియు తెగుళ్ళ నుండి నామమాత్రపు ప్రీమియంతో రైతులకు పూర్తి రక్షణ కల్పిస్తుంది.',
+      hi: 'आपने फसल क्षति या बीमा की जानकारी मांगी है। प्रधानमंत्री फसल बीमा योजना (PMFBY) प्राकृतिक आपदाओं से फसल नुकसान पर न्यूनतम प्रीमियम में पूर्ण सुरक्षा प्रदान करती है।'
+    },
+    importantNote: {
+      en: 'Report localized crop loss within 72 hours via the Crop Insurance App or local agricultural officer.',
+      te: 'పంట నష్టం జరిగిన 72 గంటలలోపు పంట బీమా యాప్ లేదా వ్యవసాయ అధికారి ద్వారా నివేదించాలి.',
+      hi: 'फसल नुकसान की सूचना 72 घंटे के भीतर क्रॉप इंश्योरेंस ऐप पर दर्ज करना अनिवार्य है।'
+    }
+  },
+  {
+    serviceId: 'pm-jan-aushadhi',
+    category: 'healthcare',
+    targetGroups: ['all', 'senior_citizens', 'low_income'],
+    intents: [
+      'cheap medicines',
+      'generic medicine shop',
+      'janaushadhi kendra',
+      'discount prescription medicines',
+      'affordable diabetes and bp medicine'
+    ],
+    keywords: [
+      'cheap medicine', 'janaushadhi', 'generic', 'medical store', 'bp medicine', 'insulin', 'pharmacy',
+      'చౌక మందులు', 'జెనరిక్ మందులు', 'జన్ ఔషధి', 'వైద్య ఖర్చులు',
+      'सस्ती दवाएं', 'जेनेरिक दवा', 'जनऔषधि केंद्र', 'दवा दुकान'
+    ],
+    whyExplanation: {
+      en: 'You asked about affordable medicines. PM Bhartiya Janaushadhi Kendras provide certified generic medicines at 50% to 90% lesser cost than commercial brand names.',
+      te: 'మీరు చౌక మందుల గురించి అడిగారు. పీఎం జన్ ఔషధి కేంద్రాలు నాణ్యమైన జెనరిక్ మందులను మార్కెట్ ధర కంటే 50% నుండి 90% తక్కువకే అందిస్తాయి.',
+      hi: 'आपने सस्ती दवाओं के बारे में पूछा है। पीएम जनऔषधि केंद्रों पर ब्रांडेड दवाओं से 50% से 90% कम कीमत पर गुणवत्तापूर्ण जेनेरिक दवाएं मिलती हैं।'
+    },
+    importantNote: {
+      en: 'Open to all citizens without any income certificates. Present your doctor prescription to purchase generic equivalents.',
+      te: 'ఎటువంటి ఆదాయ ధృవీకరణ అవసరం లేకుండా అందరికీ అందుబాటులో ఉంటుంది. డాక్టర్ ప్రిస్క్రిప్షన్ చూపించి మందులు పొందవచ్చు.',
+      hi: 'सभी नागरिकों के लिए उपलब्ध; डॉक्टर के पर्चे पर लिखी दवा के जेनेरिक साल्ट के अनुसार दवा प्राप्त करें।'
+    }
+  },
+  {
+    serviceId: 'pmkvy-skill',
+    category: 'employment',
+    targetGroups: ['youth', 'students', 'low_income'],
+    intents: [
+      'free skill training course',
+      'pmkvy',
+      'job training for unemployed youth',
+      'vocational certification',
+      'learn technical skill for free'
+    ],
+    keywords: [
+      'skill training', 'pmkvy', 'vocational course', 'free course', 'job certification', 'nsdc',
+      'ఉచిత శిక్షణ', 'నైపుణ్య కోర్సు', 'కౌశల్ వికాస్', 'ఉద్యోగ శిక్షణ',
+      'मुफ्त कौशल प्रशिक्षण', 'कौशल विकास', 'पीएमकेवीवाई', 'रोजगार कोर्स'
+    ],
+    whyExplanation: {
+      en: 'You asked about skill training and job preparation. PM Kaushal Vikas Yojana (PMKVY) offers 100% government-sponsored vocational certification and placement assistance for youth.',
+      te: 'మీరు నైపుణ్య శిక్షణ మరియు ఉద్యోగ తయారీ గురించి అడిగారు. పీఎం కౌశల్ వికాస్ యోజన యువతకు ఉచిత వృత్తి శిక్షణ మరియు ప్రభుత్వ సర్టిఫికెట్‌ను అందిస్తుంది.',
+      hi: 'आपने कौशल विकास और रोजगार प्रशिक्षण के बारे में पूछा है। पीएम कौशल विकास योजना युवाओं को पूरी तरह निःशुल्क प्रमाणन व रोजगार सहायता देती है।'
+    },
+    importantNote: {
+      en: 'Includes practical laboratory training and a nationally recognized NSDC qualification pack certificate.',
+      te: 'ప్రాక్టికల్ శిక్షణ మరియు జాతీయ గుర్తింపు పొందిన ఎన్‌ఎస్‌డీసీ సర్టిఫికెట్ లభిస్తుంది.',
+      hi: 'प्रशिक्षण के बाद राष्ट्रीय स्तर पर मान्य सरकारी कौशल प्रमाण पत्र जारी होता है।'
+    }
+  },
+  {
+    serviceId: 'pm-svanidhi',
+    category: 'financial_assistance',
+    targetGroups: ['entrepreneurs', 'low_income', 'workers'],
+    intents: [
+      'street vendor loan',
+      'svanidhi loan',
+      'thela loan 10000',
+      'vegetable vendor working capital',
+      'hawker microcredit'
+    ],
+    keywords: [
+      'svanidhi', 'street vendor', 'thela', 'hawker', 'vendor loan', 'working capital 10000', 'pushcart',
+      'వీధి వ్యాపారి రుణం', 'స్వనిధి', 'చిరు వ్యాపారుల లోన్',
+      'स्वनिधि', 'स्ट्रीट वेंडर', 'ठेला ऋण', 'फेरीवाला लोन', 'कार्यशील पूंजी'
+    ],
+    whyExplanation: {
+      en: 'You inquired about financial assistance for street vending. PM SVANidhi provides collateral-free working capital micro-loans from ₹10,000 up to ₹50,000 with 7% interest subsidy.',
+      te: 'మీరు వీధి వ్యాపారుల రుణాల గురించి అడిగారు. పీఎం స్వనిధి పథకం ద్వారా ఎటువంటి పూచీకత్తు లేకుండా ₹10,000 నుండి ₹50,000 వరకు తక్కువ వడ్డీ రుణాలు లభిస్తాయి.',
+      hi: 'आपने रेहड़ी-पटरी विक्रेताओं के ऋण के बारे में पूछा है। पीएम स्वनिधि ₹10,000 से ₹50,000 तक का सस्ता बिना गारंटी का कार्यशील पूंजी ऋण प्रदान करती है।'
+    },
+    importantNote: {
+      en: 'Requires Certificate of Vending (CoV) or Letter of Recommendation from Municipality/ULB.',
+      te: 'మున్సిపాలిటీ జారీ చేసిన వెండింగ్ సర్టిఫికెట్ లేదా సిఫార్సు లేఖ అవసరం.',
+      hi: 'नगर निगम या नगर पालिका द्वारा जारी वेंडिंग प्रमाण पत्र या सिफारिश पत्र आवश्यक है।'
+    }
+  },
+  {
+    serviceId: 'pm-matru-vandana',
+    category: 'women_child',
+    targetGroups: ['women', 'low_income'],
+    intents: [
+      'pregnant women financial assistance',
+      'maternity cash benefit',
+      'pmmvy',
+      'money for pregnant mothers',
+      'delivery allowance government'
+    ],
+    keywords: [
+      'pregnant', 'maternity', 'pmmvy', 'matru vandana', 'pregnancy money', 'lactating mother', 'delivery aid',
+      'గర్భిణీ స్త్రీల సహాయం', 'మాతృ వందన', 'కాన్పు సహాయం', 'బాలింతల పోషణ',
+      'गर्भवती महिला सहायता', 'मातृ वंदना', 'प्रसूति सहायता', 'गर्भावस्था भत्ता'
+    ],
+    whyExplanation: {
+      en: 'You asked about government assistance for pregnancy and motherhood. PM Matru Vandana Yojana provides ₹5,000 to ₹6,000 directly into bank accounts for pregnant and lactating mothers.',
+      te: 'మీరు గర్భిణీలకు ఆర్థిక సహాయం గురించి అడిగారు. పీఎం మాతృ వందన యోజన ద్వారా గర్భిణులు మరియు బాలింతలకు ₹5,000 నుండి ₹6,000 వరకు నగదు ప్రోత్సాహకం నేరుగా బ్యాంక్ ఖాతాలో జమ అవుతుంది.',
+      hi: 'आपने गर्भावस्था सहायता के बारे में पूछा है। पीएम मातृ वंदना योजना गर्भवती महिलाओं को पोषण व देखभाल हेतु ₹5,000 से ₹6,000 की नकद सहायता सीधे खाते में देती है।'
+    },
+    importantNote: {
+      en: 'Register early at your local Anganwadi Centre or primary health center with your MCP card.',
+      te: 'మీ MCP కార్డుతో సమీప అంగన్‌వాడీ కేంద్రంలో లేదా పీహెచ్‌సీలో నమోదు చేయించుకోండి.',
+      hi: 'एमसीपी कार्ड के साथ नजदीकी आंगनवाड़ी केंद्र या अस्पताल में प्रारंभिक पंजीकरण कराएं।'
+    }
+  },
+  {
+    serviceId: 'udid-disability',
+    category: 'disability',
+    targetGroups: ['disabled', 'all'],
+    intents: [
+      'disability certificate',
+      'udid card',
+      'swavlamban card',
+      'handicapped pension or aid',
+      'divyangjan services'
+    ],
+    keywords: [
+      'disability', 'udid', 'swavlamban', 'handicapped', 'divyang', 'wheelchair aid', 'disability pension',
+      'దివ్యాంగుల కార్డు', 'వైకల్య సర్టిఫికెట్', 'స్వావలంబన్',
+      'दिव्यांगता प्रमाण पत्र', 'यूडीआईडी', 'स्वावलंबन कार्ड', 'दिव्यांग पेंशन'
+    ],
+    whyExplanation: {
+      en: 'You asked about disability services and certification. Unique Disability ID (UDID) provides a single, universally accepted Smart Swavlamban Card ensuring seamless access to pensions, aids, and concessions.',
+      te: 'మీరు దివ్యాంగుల సేవలు మరియు సర్టిఫికెట్ గురించి అడిగారు. UDID స్వావలంబన్ కార్డు ద్వారా దేశవ్యాప్తంగా పెన్షన్లు, బస్సు/రైలు రాయితీలు మరియు సహాయక పరికరాలు లభిస్తాయి.',
+      hi: 'आपने दिव्यांगता सेवाओं के बारे में पूछा है। यूडीआईडी (स्वावलंबन कार्ड) पूरे भारत में मान्य एकल पहचान पत्र है जिससे पेंशन, रियायतें और उपकरण आसानी से मिलते हैं।'
+    },
+    importantNote: {
+      en: 'Assessment is conducted by District Hospital Medical Board, and physical Smart Card is speed-posted free of cost.',
+      te: 'జిల్లా ఆసుపత్రి మెడికల్ బోర్డు పరీక్ష నిర్వహిస్తుంది మరియు స్మార్ట్ కార్డు ఉచితంగా పోస్ట్ ద్వారా వస్తుంది.',
+      hi: 'जिला मेडिकल बोर्ड द्वारा परीक्षण के उपरांत स्मार्ट कार्ड स्पीड पोस्ट से निःशुल्क घर भेजा जाता है।'
+    }
+  },
+  {
+    serviceId: 'state-certificates',
+    category: 'certificates',
+    targetGroups: ['all', 'students', 'youth', 'low_income'],
+    intents: [
+      'caste certificate application',
+      'income certificate',
+      'residence domicile certificate',
+      'meeseva certificate',
+      'edistrict revenue certificate'
+    ],
+    keywords: [
+      'caste certificate', 'income certificate', 'residence certificate', 'meeseva', 'edistrict', 'domicile', 'obc', 'sc st certificate',
+      'కుల ధృవీకరణ పత్రం', 'ఆదాయ సర్టిఫికెట్', 'నివాస ధృవీకరణ', 'మీసేవ',
+      'जाति प्रमाण पत्र', 'आय प्रमाण पत्र', 'निवास प्रमाण पत्र', 'ई-डिस्ट्रिक्ट'
+    ],
+    whyExplanation: {
+      en: 'You inquired about issuing revenue certificates. State e-District and MeeSeva portals issue legally verified, QR-coded Caste, Income, and Residence certificates essential for admissions and jobs.',
+      te: 'మీరు రెవెన్యూ సర్టిఫికెట్ల గురించి అడిగారు. మీసేవ మరియు ఈ-డిస్ట్రిక్ట్ ద్వారా చట్టబద్ధమైన క్యూఆర్ కోడ్ కలిగిన కుల, ఆదాయ మరియు నివాస పత్రాలు జారీ చేయబడతాయి.',
+      hi: 'आपने राजस्व प्रमाण पत्रों के बारे में पूछा है। ई-डिस्ट्रिक्ट पोर्टल के माध्यम से डिजिटल हस्ताक्षरित जाति, आय एवं निवास प्रमाण पत्र जारी किए जाते हैं।'
+    },
+    importantNote: {
+      en: 'Digitally signed by Tahsildar with verifiable QR code; valid across India and directly importable to DigiLocker.',
+      te: 'తహశీల్దార్ డిజిటల్ సంతకంతో క్యూఆర్ కోడ్ ఉంటుంది; డిజిలాకర్‌లో భద్రపరచుకోవచ్చు.',
+      hi: 'तहसीलदार द्वारा डिजिटल हस्ताक्षरित एवं क्यूआर कोड युक्त; डिजिलॉकर में सुरक्षित किया जा सकता है।'
+    }
+  },
+  {
+    serviceId: 'crs-birth-death',
+    category: 'certificates',
+    targetGroups: ['all', 'general'],
+    intents: [
+      'birth certificate online',
+      'death certificate',
+      'register newborn baby',
+      'hospital birth certificate',
+      'lost birth certificate download'
+    ],
+    keywords: [
+      'birth certificate', 'death certificate', 'crsorgi', 'newborn', 'date of birth proof',
+      'జనన ధృవీకరణ పత్రం', 'మరణ సర్టిఫికెట్', 'పుట్టిన తేదీ రుజువు',
+      'जन्म प्रमाण पत्र', 'मृत्यु प्रमाण पत्र', 'सीआरएस'
+    ],
+    whyExplanation: {
+      en: 'You inquired about registering a birth or death. The Civil Registration System (CRS) is the official statutory platform issuing recognized birth and death certificates.',
+      te: 'మీరు జనన లేదా మరణ ధృవీకరణ పత్రం గురించి అడిగారు. పౌర రిజిస్ట్రేషన్ వ్యవస్థ (CRS) ద్వారా అధికారిక జనన మరియు మరణ పత్రాలు ఆన్‌లైన్‌లో జారీ చేయబడతాయి.',
+      hi: 'आपने जन्म या मृत्यु पंजीकरण के बारे में पूछा है। नागरिक पंजीकरण प्रणाली (CRS) आधिकारिक कानूनी जन्म एवं मृत्यु प्रमाण पत्र जारी करती है।'
+    },
+    importantNote: {
+      en: 'Registration within 21 days of occurrence is completely free of government fees.',
+      te: 'జరిగిన 21 రోజులలోపు నమోదు చేసుకుంటే ఎటువంటి ప్రభుత్వ రుసుము ఉండదు.',
+      hi: 'घटना के 21 दिनों के भीतर पंजीकरण पूर्णतः निःशुल्क होता है।'
+    }
+  },
+  {
+    serviceId: 'uidai-aadhaar',
+    category: 'identity',
+    targetGroups: ['all', 'general'],
+    intents: [
+      'update address in aadhaar',
+      'myaadhaar online correction',
+      'download eaadhaar pdf',
+      'link mobile number with aadhaar',
+      'lock biometric aadhaar'
+    ],
+    keywords: [
+      'aadhaar', 'uidai', 'address update', 'myaadhaar', 'eaadhaar', 'biometric lock', 'lost aadhaar',
+      'ఆధార్ అప్‌డేట్', 'చిరునామా మార్పు ఆధార్', 'ఈ-ఆధార్ డౌన్‌లోడ్',
+      'आधार अपडेट', 'पता बदलना आधार', 'ई-आधार डाउनलोड'
+    ],
+    whyExplanation: {
+      en: 'You inquired about Aadhaar identity updates. The official UIDAI myAadhaar portal allows citizens to update their residential address, download digital e-Aadhaar, and lock biometrics online.',
+      te: 'మీరు ఆధార్ సేవల గురించి అడిగారు. UIDAI మై-ఆధార్ పోర్టల్ ద్వారా చిరునామా మార్పు, ఈ-ఆధార్ డౌన్‌లోడ్ మరియు బయోమెట్రిక్ భద్రత సేవలు లభిస్తాయి.',
+      hi: 'आपने आधार सेवाओं के बारे में पूछा है। यूआईडीएआई myAadhaar पोर्टल से घर बैठे पता अपडेट और डिजिटल ई-आधार डाउनलोड किया जा सकता है।'
+    },
+    importantNote: {
+      en: 'Your mobile number must be linked with Aadhaar to receive OTP for online demographic changes.',
+      te: 'ఆన్‌లైన్ మార్పుల కోసం మొబైల్ నంబర్ ఆధార్‌తో లింక్ అయి ఉండాలి.',
+      hi: 'ऑनलाइन सुधार हेतु मोबाइल नंबर आधार से लिंक होना आवश्यक है।'
+    }
+  },
+  {
+    serviceId: 'pm-surya-ghar',
+    category: 'utilities',
+    targetGroups: ['all', 'low_income', 'general'],
+    intents: [
+      'rooftop solar subsidy',
+      'pm surya ghar',
+      '300 units free electricity',
+      'solar panel government scheme',
+      'zero electricity bill'
+    ],
+    keywords: [
+      'solar', 'rooftop solar', 'pm surya ghar', 'free electricity', '300 units', 'subsidy 78000', 'solar panel',
+      'సోలార్ సబ్సిడీ', 'రూఫ్‌టాప్ సోలార్', 'సూర్య ఘర్', 'ఉచిత కరెంట్',
+      'सोलर सब्सिडी', 'रूफटॉप सोलर', 'पीएम सूर्य घर', 'मुफ्त बिजली'
+    ],
+    whyExplanation: {
+      en: 'You asked about solar panel subsidies or electricity bill reduction. PM Surya Ghar Muft Bijli Yojana provides up to ₹78,000 direct bank subsidy for residential rooftop solar.',
+      te: 'మీరు సోలార్ సబ్సిడీ లేదా ఉచిత విద్యుత్ గురించి అడిగారు. పీఎం సూర్య ఘర్ పథకం ద్వారా ఇంటిపై సోలార్ ప్యానెల్స్ ఏర్పాటుకు ₹78,000 వరకు ప్రభుత్వ సబ్సిడీ లభిస్తుంది.',
+      hi: 'आपने सोलर पैनल सब्सिडी या मुफ्त बिजली के बारे में पूछा है। पीएम सूर्य घर योजना के तहत रूफटॉप सोलर हेतु ₹78,000 तक की सीधी बैंक सब्सिडी मिलती है।'
+    },
+    importantNote: {
+      en: 'Empaneled vendor performs installation, and Discom net-metering ensures excess electricity earns you bill credits.',
+      te: 'గుర్తింపు పొందిన వెండర్ అమర్చుతారు మరియు నెట్ మీటరింగ్ ద్వారా అదనపు విద్యుత్‌కు బిల్లు తగ్గింపు లభిస్తుంది.',
+      hi: 'अनुमोदित वेंडर द्वारा स्थापना होती है और नेट मीटरिंग से अतिरिक्त बिजली पर बिल में क्रेडिट मिलता है।'
+    }
+  },
+  {
+    serviceId: 'parivahan-driving-license',
+    category: 'transport',
+    targetGroups: ['youth', 'all', 'general'],
+    intents: [
+      'apply driving license',
+      'learner license online test',
+      'llr test at home',
+      'parivahan sarathi',
+      'dl renewal'
+    ],
+    keywords: [
+      'driving license', 'learner license', 'llr', 'parivahan', 'sarathi', 'dl test', 'rto',
+      'డ్రైవింగ్ లైసెన్స్', 'లెర్నర్ లైసెన్స్', 'సారథి', 'పరివాహన్',
+      'ड्राइविंग लाइसेंस', 'लर्नर लाइसेंस', 'सारथी', 'आरटीओ टेस्ट'
+    ],
+    whyExplanation: {
+      en: 'You inquired about driving licences. The Ministry of Road Transport’s Sarathi Parivahan portal allows contactless online Learner Licence tests from home and permanent DL booking.',
+      te: 'మీరు డ్రైవింగ్ లైసెన్స్ గురించి అడిగారు. సారథి పరివాహన్ పోర్టల్ ద్వారా ఇంట్లోనే ఆన్‌లైన్ పరీక్ష రాసి లెర్నర్ లైసెన్స్ (LLR) పొందవచ్చు.',
+      hi: 'आपने ड्राइविंग लाइसेंस के बारे में पूछा है। सारथी परिवहन पोर्टल के माध्यम से घर बैठे ऑनलाइन टेस्ट देकर लर्नर लाइसेंस प्राप्त किया जा सकता है।'
+    },
+    importantNote: {
+      en: 'Contactless Aadhaar e-KYC allows taking the computer traffic test from home with a webcam.',
+      te: 'ఆధార్ e-KYC ద్వారా వెబ్‌క్యామ్‌తో ఇంట్లోనే ఆన్‌లైన్ పరీక్ష రాయవచ్చు.',
+      hi: 'आधार e-KYC द्वारा घर बैठे वेबकैम के जरिए ऑनलाइन टेस्ट दिया जा सकता है।'
+    }
+  },
+  {
+    serviceId: 'mgnrega-job-card',
+    category: 'rural_development',
+    targetGroups: ['workers', 'low_income', 'general'],
+    intents: [
+      'mgnrega job card',
+      '100 days work in village',
+      'nrega rural employment',
+      'gram panchayat work',
+      'unskilled wage labour'
+    ],
+    keywords: [
+      'nrega', 'mgnrega', 'job card', '100 days', 'rural wage', 'gram panchayat labour',
+      'ఉపాధి హామీ', 'జాబ్ కార్డు', 'నరేగా', '100 రోజుల పని',
+      'मनरेगा', 'जॉब कार्ड', '100 दिन का काम', 'ग्रामीण रोजगार'
+    ],
+    whyExplanation: {
+      en: 'You inquired about guaranteed rural wage work. MGNREGA legally guarantees 100 days of wage employment per year to rural households with direct bank wage credit.',
+      te: 'మీరు గ్రామీణ ఉపాధి గురించి అడిగారు. మహాత్మా గాంధీ ఉపాధి హామీ పథకం గ్రామీణ కుటుంబాలకు సంవత్సరానికి 100 రోజుల ఉపాధికి చట్టబద్ధమైన హామీ ఇస్తుంది.',
+      hi: 'आपने ग्रामीण रोजगार के बारे में पूछा है। मनरेगा ग्रामीण परिवारों को वित्तीय वर्ष में 100 दिन के काम की कानूनी गारंटी प्रदान करता है।'
+    },
+    importantNote: {
+      en: 'Apply at your Gram Panchayat office; statutory rule requires providing work within 15 days of demand.',
+      te: 'గ్రామ పంచాయతీలో దరఖాస్తు చేసుకోవాలి; పని కోరిన 15 రోజుల్లో పని కల్పించాలి.',
+      hi: 'ग्राम पंचायत में आवेदन करें; मांग करने के 15 दिनों में काम देना अनिवार्य है।'
+    }
   }
 ];
 
@@ -535,6 +887,45 @@ export function evaluateCitizenQuery(query: string, lang: Language = 'en', activ
       intentScore = Math.max(intentScore, 95);
     }
     if ((qLower.includes('girl child') || qLower.includes('daughter') || qLower.includes('sukanya') || qLower.includes('girl education')) && service.id === 'sukanya-samriddhi') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('solar') || qLower.includes('rooftop') || qLower.includes('free electricity') || qLower.includes('surya')) && service.id === 'pm-surya-ghar') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('disability') || qLower.includes('handicap') || qLower.includes('udid') || qLower.includes('divyang')) && service.id === 'udid-disability') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('caste') || qLower.includes('income certificate') || qLower.includes('domicile') || qLower.includes('residence certificate')) && service.id === 'state-certificates') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('birth certificate') || qLower.includes('death certificate') || qLower.includes('newborn')) && service.id === 'crs-birth-death') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('aadhaar') || qLower.includes('update address') || qLower.includes('eaadhaar')) && service.id === 'uidai-aadhaar') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('driving') || qLower.includes('license') || qLower.includes('learner') || qLower.includes('llr') || qLower.includes('sarathi')) && service.id === 'parivahan-driving-license') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('mgnrega') || qLower.includes('100 days') || qLower.includes('nrega') || qLower.includes('job card')) && service.id === 'mgnrega-job-card') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('vendor') || qLower.includes('svanidhi') || qLower.includes('street vendor') || qLower.includes('thela')) && service.id === 'pm-svanidhi') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('pregnant') || qLower.includes('maternity') || qLower.includes('matru vandana') || qLower.includes('pregnancy')) && service.id === 'pm-matru-vandana') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('cheap medicine') || qLower.includes('janaushadhi') || qLower.includes('generic')) && service.id === 'pm-jan-aushadhi') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('crop insurance') || qLower.includes('fasal bima') || qLower.includes('crop loss') || qLower.includes('drought')) && service.id === 'pm-fby') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('skill') || qLower.includes('training') || qLower.includes('pmkvy') || qLower.includes('vocational')) && service.id === 'pmkvy-skill') {
+      intentScore = Math.max(intentScore, 95);
+    }
+    if ((qLower.includes('aicte') || qLower.includes('pragati') || (qLower.includes('girl') && qLower.includes('engineering'))) && service.id === 'aicte-pragati') {
       intentScore = Math.max(intentScore, 95);
     }
 

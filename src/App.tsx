@@ -38,6 +38,7 @@ import {
   getReadNotices,
   markNoticeRead
 } from './utils/storage';
+import { filterServices } from './utils/filterServices';
 
 // Components
 import { Navbar } from './components/Navbar';
@@ -152,42 +153,17 @@ export default function App() {
 
   const topUrgentNotice = announcementsData.find(n => n.isUrgent);
 
-  // Filter Services Logic
-  const filteredServices = servicesData.filter((service) => {
-    // 1. Category Filter
-    if (selectedCategory !== 'all' && service.category !== selectedCategory) {
-      return false;
-    }
-
-    // 2. Target Audience Filter
-    if (selectedAudience !== 'all' && !service.targetGroups.includes(selectedAudience)) {
-      return false;
-    }
-
-    // 3. Search Query (matches Title in current lang, English title, tags, department, or purpose)
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase().trim();
-      const nameCurrent = service.name[currentLang]?.toLowerCase() || '';
-      const nameEn = service.name.en.toLowerCase();
-      const descCurrent = service.shortDescription[currentLang]?.toLowerCase() || '';
-      const deptCurrent = service.department[currentLang]?.toLowerCase() || '';
-      const tagsMatch = service.tags.some(t => t.toLowerCase().includes(query));
-
-      const matchesSearch = 
-        nameCurrent.includes(query) ||
-        nameEn.includes(query) ||
-        descCurrent.includes(query) ||
-        deptCurrent.includes(query) ||
-        tagsMatch;
-
-      if (!matchesSearch) return false;
-    }
-
-    return true;
+  // Data-driven centralized filter and search
+  const filteredServices = filterServices({
+    services: servicesData,
+    searchQuery,
+    category: selectedCategory,
+    audience: selectedAudience,
+    currentLang
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white font-sans antialiased">
+    <div className="w-full min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white font-sans antialiased">
       {/* Top Main Navigation (Feature 5 & 6) */}
       <Navbar
         currentLang={currentLang}

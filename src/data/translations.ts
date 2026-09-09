@@ -35,6 +35,16 @@ export interface Translations {
   catHousing: string;
   catEmployment: string;
   catBusiness: string;
+  catWomenChild: string;
+  catSeniorCitizens: string;
+  catDisability: string;
+  catCertificates: string;
+  catIdentity: string;
+  catFinancialAssistance: string;
+  catUtilities: string;
+  catTransport: string;
+  catRuralDevelopment: string;
+  catOther: string;
 
   // Audiences
   audStudents: string;
@@ -43,6 +53,9 @@ export interface Translations {
   audWomen: string;
   audYouth: string;
   audLowIncome: string;
+  audWorkers: string;
+  audDisabled: string;
+  audEntrepreneurs: string;
 
   // Card & Details
   department: string;
@@ -181,6 +194,16 @@ export const translations: Record<Language, Translations> = {
     catHousing: 'Housing & Urban Development',
     catEmployment: 'Employment & Skill Training',
     catBusiness: 'MSME & Business Finance',
+    catWomenChild: 'Women & Child Welfare',
+    catSeniorCitizens: 'Senior Citizens & Pensions',
+    catDisability: 'Disability & Divyangjan Services',
+    catCertificates: 'Certificates & Civil Registration',
+    catIdentity: 'Identity & Citizen Services',
+    catFinancialAssistance: 'Financial Assistance & Subsidies',
+    catUtilities: 'Public Utilities & Energy',
+    catTransport: 'Transport & Licensing',
+    catRuralDevelopment: 'Rural Development & Livelihood',
+    catOther: 'General Citizen Services',
 
     audStudents: 'Students & Youth',
     audFarmers: 'Farmers & Agri-workers',
@@ -188,6 +211,9 @@ export const translations: Record<Language, Translations> = {
     audWomen: 'Women & Child',
     audYouth: 'Job Seekers',
     audLowIncome: 'Low Income Families',
+    audWorkers: 'Unorganized & Daily Workers',
+    audDisabled: 'Persons with Disabilities',
+    audEntrepreneurs: 'Small Business & Vendors',
 
     department: 'Department',
     purpose: 'Core Benefit / Purpose',
@@ -316,6 +342,16 @@ export const translations: Record<Language, Translations> = {
     catHousing: 'గృహనిర్మాణం & పట్టణాభివృద్ధి',
     catEmployment: 'ఉపాధి & నైపుణ్య శిక్షణ',
     catBusiness: 'MSME & వ్యాపార ఆర్థిక సహాయం',
+    catWomenChild: 'మహిళా & శిశు సంక్షేమం',
+    catSeniorCitizens: 'వయోవృద్ధుల సంక్షేమం & పెన్షన్',
+    catDisability: 'దివ్యాంగుల సేవలు',
+    catCertificates: 'ధృవీకరణ పత్రాలు & పౌర సేవలు',
+    catIdentity: 'గుర్తింపు & ఆధార్ సేవలు',
+    catFinancialAssistance: 'ఆర్థిక సహాయం & సబ్సిడీలు',
+    catUtilities: 'ప్రజా వినియోగం & సౌర శక్తి',
+    catTransport: 'రవాణా & డ్రైవింగ్ లైసెన్స్',
+    catRuralDevelopment: 'గ్రామీణాభివృద్ధి & ఉపాధి హామీ',
+    catOther: 'ఇతర పౌర సేవలు',
 
     audStudents: 'విద్యార్థులు & యువత',
     audFarmers: 'రైతులు & వ్యవసాయ కూలీలు',
@@ -323,6 +359,9 @@ export const translations: Record<Language, Translations> = {
     audWomen: 'మహిళలు & శిశువులు',
     audYouth: 'ఉద్యోగార్థులు',
     audLowIncome: 'తక్కువ ఆదాయ కుటుంబాలు',
+    audWorkers: 'అసంఘటిత రంగ కార్మికులు',
+    audDisabled: 'దివ్యాంగులు',
+    audEntrepreneurs: 'చిన్న వ్యాపారులు & విక్రేతలు',
 
     department: 'ప్రభుత్వ శాఖ',
     purpose: 'ముఖ్య ప్రయోజనం / ఉద్దేశ్యం',
@@ -451,6 +490,16 @@ export const translations: Record<Language, Translations> = {
     catHousing: 'आवास एवं शहरी विकास',
     catEmployment: 'रोजगार एवं कौशल विकास',
     catBusiness: 'MSME एवं व्यावसायिक ऋण',
+    catWomenChild: 'महिला एवं बाल विकास',
+    catSeniorCitizens: 'वरिष्ठ नागरिक कल्याण',
+    catDisability: 'दिव्यांगजन सेवाएं',
+    catCertificates: 'प्रमाण पत्र एवं नागरिक सेवाएं',
+    catIdentity: 'पहचान एवं आधार सेवाएं',
+    catFinancialAssistance: 'वित्तीय सहायता एवं सब्सिडी',
+    catUtilities: 'जनोपयोगी सेवाएं एवं सौर ऊर्जा',
+    catTransport: 'परिवहन एवं ड्राइविंग लाइसेंस',
+    catRuralDevelopment: 'ग्रामीण विकास एवं रोजगार',
+    catOther: 'अन्य नागरिक सेवाएं',
 
     audStudents: 'विद्यार्थी एवं युवा',
     audFarmers: 'किसान एवं कृषि श्रमिक',
@@ -458,6 +507,9 @@ export const translations: Record<Language, Translations> = {
     audWomen: 'महिला एवं बाल विकास',
     audYouth: 'रोजगार चाहने वाले',
     audLowIncome: 'कम आय वाले परिवार',
+    audWorkers: 'असंगठित कामगार एवं मजदूर',
+    audDisabled: 'दिव्यांगजन',
+    audEntrepreneurs: 'छोटे व्यवसायी एवं वेंडर',
 
     department: 'संबंधित विभाग',
     purpose: 'मुख्य लाभ / उद्देश्य',
